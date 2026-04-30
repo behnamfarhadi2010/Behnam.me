@@ -11,6 +11,7 @@ export interface About {
   tagline: string;
   intro: string;
   bio: string;
+  avatarUrl?: string | null;
   emailNewsletter: string;
   blueskyUrl: string;
   rssUrl: string;

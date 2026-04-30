@@ -8,6 +8,28 @@
 import * as zod from "zod";
 
 /**
+ * @summary Request a presigned URL for file upload
+ */
+
+export const RequestUploadUrlBody = zod.object({
+  name: zod.string().min(1),
+  size: zod.number().min(1),
+  contentType: zod.string().min(1),
+});
+
+export const RequestUploadUrlResponse = zod.object({
+  uploadURL: zod.string().url(),
+  objectPath: zod.string(),
+  metadata: zod
+    .object({
+      name: zod.string().min(1),
+      size: zod.number().min(1),
+      contentType: zod.string().min(1),
+    })
+    .optional(),
+});
+
+/**
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
@@ -30,6 +52,7 @@ export const ListPostsResponseItem = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -45,6 +68,7 @@ export const CreatePostBody = zod.object({
   title: zod.string().min(1),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
 });
 
@@ -61,6 +85,7 @@ export const GetPostResponse = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -78,6 +103,7 @@ export const UpdatePostBody = zod.object({
   title: zod.string().min(1),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
 });
 
@@ -87,6 +113,7 @@ export const UpdatePostResponse = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -112,6 +139,7 @@ export const ListNotesResponseItem = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -127,6 +155,7 @@ export const CreateNoteBody = zod.object({
   title: zod.string().min(1),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
 });
 
@@ -143,6 +172,7 @@ export const GetNoteResponse = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -160,6 +190,7 @@ export const UpdateNoteBody = zod.object({
   title: zod.string().min(1),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
 });
 
@@ -169,6 +200,7 @@ export const UpdateNoteResponse = zod.object({
   title: zod.string(),
   content: zod.string(),
   excerpt: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   published: zod.boolean(),
   createdAt: zod.coerce.date(),
   updatedAt: zod.coerce.date(),
@@ -192,6 +224,7 @@ export const ListProjectsResponseItem = zod.object({
   id: zod.number(),
   title: zod.string(),
   description: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   year: zod.number(),
   articleUrl: zod.string().nullish(),
   demoUrl: zod.string().nullish(),
@@ -209,6 +242,7 @@ export const ListProjectsResponse = zod.array(ListProjectsResponseItem);
 export const CreateProjectBody = zod.object({
   title: zod.string().min(1),
   description: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   year: zod.number(),
   articleUrl: zod.string().nullish(),
   demoUrl: zod.string().nullish(),
@@ -226,6 +260,7 @@ export const UpdateProjectParams = zod.object({
 export const UpdateProjectBody = zod.object({
   title: zod.string().min(1),
   description: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   year: zod.number(),
   articleUrl: zod.string().nullish(),
   demoUrl: zod.string().nullish(),
@@ -237,6 +272,7 @@ export const UpdateProjectResponse = zod.object({
   id: zod.number(),
   title: zod.string(),
   description: zod.string(),
+  coverImageUrl: zod.string().nullish(),
   year: zod.number(),
   articleUrl: zod.string().nullish(),
   demoUrl: zod.string().nullish(),
@@ -261,6 +297,7 @@ export const GetAboutResponse = zod.object({
   tagline: zod.string(),
   intro: zod.string(),
   bio: zod.string(),
+  avatarUrl: zod.string().nullish(),
   emailNewsletter: zod.string(),
   blueskyUrl: zod.string(),
   rssUrl: zod.string(),
@@ -275,6 +312,7 @@ export const UpdateAboutBody = zod.object({
   tagline: zod.string(),
   intro: zod.string(),
   bio: zod.string(),
+  avatarUrl: zod.string().nullish(),
   emailNewsletter: zod.string(),
   blueskyUrl: zod.string(),
   rssUrl: zod.string(),
@@ -285,6 +323,7 @@ export const UpdateAboutResponse = zod.object({
   tagline: zod.string(),
   intro: zod.string(),
   bio: zod.string(),
+  avatarUrl: zod.string().nullish(),
   emailNewsletter: zod.string(),
   blueskyUrl: zod.string(),
   rssUrl: zod.string(),

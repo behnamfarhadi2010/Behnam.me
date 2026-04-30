@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { useListPosts } from "@workspace/api-client-react";
 import { fmtShortDate } from "@/lib/format";
+import { imageSrc } from "@/components/ImageUploadField";
 import { ArrowRight } from "lucide-react";
 
 export default function BlogList() {
@@ -36,22 +37,32 @@ export default function BlogList() {
               {year}
             </h2>
             <ul className="divide-y divide-[hsl(40,20%,88%)]">
-              {items.map((p) => (
-                <li key={p.id}>
-                  <Link
-                    href={`/blog/${p.slug}`}
-                    className="group flex items-baseline gap-4 py-3 -mx-3 px-3 rounded-md hover:bg-[hsl(40,40%,95%)] transition-colors"
-                  >
-                    <time className="w-16 shrink-0 text-sm text-muted-foreground tabular-nums">
-                      {fmtShortDate(p.when)}
-                    </time>
-                    <span className="flex-1 group-hover:text-[hsl(348,70%,45%)] transition-colors">
-                      {p.title}
-                    </span>
-                    <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[hsl(348,70%,55%)]" />
-                  </Link>
-                </li>
-              ))}
+              {items.map((p) => {
+                const cover = imageSrc(p.coverImageUrl);
+                return (
+                  <li key={p.id}>
+                    <Link
+                      href={`/blog/${p.slug}`}
+                      className="group flex items-center gap-4 py-3 -mx-3 px-3 rounded-md hover:bg-[hsl(40,40%,95%)] transition-colors"
+                    >
+                      <time className="w-16 shrink-0 text-sm text-muted-foreground tabular-nums self-baseline pt-1">
+                        {fmtShortDate(p.when)}
+                      </time>
+                      {cover && (
+                        <img
+                          src={cover}
+                          alt=""
+                          className="hidden sm:block h-14 w-20 shrink-0 rounded object-cover border border-[hsl(40,20%,88%)]"
+                        />
+                      )}
+                      <span className="flex-1 group-hover:text-[hsl(348,70%,45%)] transition-colors">
+                        {p.title}
+                      </span>
+                      <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[hsl(348,70%,55%)]" />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ))

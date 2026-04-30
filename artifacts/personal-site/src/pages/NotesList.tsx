@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { useListNotes } from "@workspace/api-client-react";
 import { fmtShortDate } from "@/lib/format";
+import { imageSrc } from "@/components/ImageUploadField";
 import { ArrowRight } from "lucide-react";
 
 export default function NotesList() {
@@ -34,29 +35,43 @@ export default function NotesList() {
         </div>
       ) : (
         <ul className="divide-y divide-[hsl(40,20%,88%)]">
-          {notes.map((n) => (
-            <li key={n.id}>
-              <Link
-                href={`/notes/${n.slug}`}
-                className="group block py-4 -mx-3 px-3 rounded-md hover:bg-[hsl(40,40%,95%)] transition-colors"
-              >
-                <div className="flex items-baseline gap-4">
-                  <time className="w-16 shrink-0 text-sm text-muted-foreground tabular-nums">
-                    {fmtShortDate(n.createdAt)}
-                  </time>
-                  <h3 className="flex-1 font-medium group-hover:text-[hsl(348,70%,45%)] transition-colors">
-                    {n.title}
-                  </h3>
-                  <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[hsl(348,70%,55%)]" />
-                </div>
-                {n.excerpt && (
-                  <p className="ml-20 mt-1 text-sm text-foreground/70 line-clamp-2">
-                    {n.excerpt}
-                  </p>
-                )}
-              </Link>
-            </li>
-          ))}
+          {notes.map((n) => {
+            const cover = imageSrc(n.coverImageUrl);
+            return (
+              <li key={n.id}>
+                <Link
+                  href={`/notes/${n.slug}`}
+                  className="group block py-4 -mx-3 px-3 rounded-md hover:bg-[hsl(40,40%,95%)] transition-colors"
+                >
+                  <div className="flex items-start gap-4">
+                    <time className="w-16 shrink-0 text-sm text-muted-foreground tabular-nums pt-1">
+                      {fmtShortDate(n.createdAt)}
+                    </time>
+                    {cover && (
+                      <img
+                        src={cover}
+                        alt=""
+                        className="hidden sm:block h-14 w-20 shrink-0 rounded object-cover border border-[hsl(40,20%,88%)]"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-4">
+                        <h3 className="flex-1 font-medium group-hover:text-[hsl(348,70%,45%)] transition-colors">
+                          {n.title}
+                        </h3>
+                        <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[hsl(348,70%,55%)]" />
+                      </div>
+                      {n.excerpt && (
+                        <p className="mt-1 text-sm text-foreground/70 line-clamp-2">
+                          {n.excerpt}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

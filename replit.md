@@ -37,6 +37,7 @@ A taniarascia.com–inspired personal website with public Blog, Notes, Projects,
 - **DB schemas**: `lib/db/src/schema/{posts,notes,projects,about}.ts`
 - **API contract**: `lib/api-spec/openapi.yaml` → generates hooks in `@workspace/api-client-react`
 - **Seed data**: `pnpm --filter @workspace/scripts run seed` populates About row and sample posts/notes/projects
+- **Image uploads**: posts/notes/projects have `coverImageUrl`, about has `avatarUrl`. Backed by Replit object storage (`artifacts/api-server/src/lib/objectStorage.ts`, `routes/storage.ts`). Frontend helper at `artifacts/personal-site/src/components/ImageUploadField.tsx` — `uploadImage(file)` posts to `/api/storage/uploads/request-url` then PUTs to the presigned URL; `imageSrc(path)` builds the public serving URL `/api/storage<objectPath>`.
 
 ### Theme
 

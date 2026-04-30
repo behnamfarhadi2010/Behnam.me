@@ -1,4 +1,5 @@
 import { useGetAbout } from "@workspace/api-client-react";
+import { imageSrc } from "@/components/ImageUploadField";
 import { Mail, MessageCircle, Rss } from "lucide-react";
 
 export default function About() {
@@ -17,9 +18,18 @@ export default function About() {
 
   return (
     <div className="max-w-3xl space-y-10 animate-in fade-in slide-in-from-bottom-2 duration-500">
-      <header className="space-y-3">
-        <h1 className="font-serif text-4xl">About</h1>
-        <p className="text-foreground/70">{about.tagline}</p>
+      <header className="flex items-start gap-6">
+        {imageSrc(about.avatarUrl) && (
+          <img
+            src={imageSrc(about.avatarUrl)}
+            alt={about.name}
+            className="h-24 w-24 shrink-0 rounded-full object-cover border-2 border-[hsl(40,20%,88%)] shadow-sm"
+          />
+        )}
+        <div className="space-y-3">
+          <h1 className="font-serif text-4xl">About</h1>
+          <p className="text-foreground/70">{about.tagline}</p>
+        </div>
       </header>
 
       <section className="space-y-6">

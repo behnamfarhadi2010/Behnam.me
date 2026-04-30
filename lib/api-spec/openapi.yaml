@@ -20,7 +20,31 @@ tags:
     description: About me content
   - name: dashboard
     description: Dashboard summary endpoints
+  - name: storage
+    description: Object storage upload and serving endpoints
 paths:
+  /storage/uploads/request-url:
+    post:
+      tags: [storage]
+      operationId: requestUploadUrl
+      summary: Request a presigned URL for file upload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadUrlRequest'
+      responses:
+        '200':
+          description: Presigned upload URL generated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUrlResponse'
+        '400':
+          description: Bad request
+        '500':
+          description: Server error
   /healthz:
     get:
       operationId: healthCheck
@@ -376,6 +400,9 @@ components:
           type: string
         excerpt:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         published:
           type: boolean
         createdAt:
@@ -398,6 +425,9 @@ components:
           type: string
         excerpt:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         published:
           type: boolean
     Note:
@@ -414,6 +444,9 @@ components:
           type: string
         excerpt:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         published:
           type: boolean
         createdAt:
@@ -436,6 +469,9 @@ components:
           type: string
         excerpt:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         published:
           type: boolean
     Project:
@@ -448,6 +484,9 @@ components:
           type: string
         description:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         year:
           type: integer
         articleUrl:
@@ -476,6 +515,9 @@ components:
           minLength: 1
         description:
           type: string
+        coverImageUrl:
+          type: string
+          nullable: true
         year:
           type: integer
         articleUrl:
@@ -501,6 +543,9 @@ components:
           type: string
         bio:
           type: string
+        avatarUrl:
+          type: string
+          nullable: true
         emailNewsletter:
           type: string
         blueskyUrl:
@@ -522,12 +567,39 @@ components:
           type: string
         bio:
           type: string
+        avatarUrl:
+          type: string
+          nullable: true
         emailNewsletter:
           type: string
         blueskyUrl:
           type: string
         rssUrl:
           type: string
+    UploadUrlRequest:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        size:
+          type: integer
+          minimum: 1
+        contentType:
+          type: string
+          minLength: 1
+    UploadUrlResponse:
+      type: object
+      required: [uploadURL, objectPath]
+      properties:
+        uploadURL:
+          type: string
+          format: uri
+        objectPath:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/UploadUrlRequest'
     DashboardSummary:
       type: object
       required: [postsTotal, postsPublished, notesTotal, notesPublished, projectsTotal, projectsPublished]

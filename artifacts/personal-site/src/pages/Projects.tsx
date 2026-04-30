@@ -1,4 +1,5 @@
 import { useListProjects } from "@workspace/api-client-react";
+import { imageSrc } from "@/components/ImageUploadField";
 import { ExternalLink } from "lucide-react";
 
 export default function Projects() {
@@ -31,39 +32,45 @@ export default function Projects() {
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 gap-4">
-          {projects.map((p, i) => (
-            <article
-              key={p.id}
-              style={{ animationDelay: `${i * 50}ms` }}
-              className="group relative overflow-hidden rounded-lg border border-[hsl(40,20%,88%)] bg-[hsl(40,33%,98%)] p-6 hover:border-[hsl(348,70%,70%)] hover:shadow-lg transition-all animate-in fade-in slide-in-from-bottom-1 duration-500"
-            >
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br from-[hsl(348,75%,80%)] to-[hsl(20,75%,80%)] opacity-0 group-hover:opacity-30 transition-opacity blur-2xl" />
-              <div className="relative flex items-start justify-between gap-3">
-                <h3 className="font-serif text-xl leading-tight group-hover:text-[hsl(348,70%,45%)] transition-colors">
-                  {p.title}
-                </h3>
-                <span className="font-mono text-xs text-muted-foreground tabular-nums shrink-0">
-                  {p.year}
-                </span>
-              </div>
-              <p className="relative mt-2 text-sm text-foreground/80">
-                {p.description}
-              </p>
-              {(p.demoUrl || p.sourceUrl || p.articleUrl) && (
-                <div className="relative mt-4 flex flex-wrap gap-2">
-                  {p.demoUrl && (
-                    <PillLink href={p.demoUrl} label="Demo" />
-                  )}
-                  {p.sourceUrl && (
-                    <PillLink href={p.sourceUrl} label="Source" />
-                  )}
-                  {p.articleUrl && (
-                    <PillLink href={p.articleUrl} label="Article" />
+          {projects.map((p, i) => {
+            const cover = imageSrc(p.coverImageUrl);
+            return (
+              <article
+                key={p.id}
+                style={{ animationDelay: `${i * 50}ms` }}
+                className="group relative overflow-hidden rounded-lg border border-[hsl(40,20%,88%)] bg-[hsl(40,33%,98%)] hover:border-[hsl(348,70%,70%)] hover:shadow-lg transition-all animate-in fade-in slide-in-from-bottom-1 duration-500"
+              >
+                {cover && (
+                  <img
+                    src={cover}
+                    alt=""
+                    className="w-full h-40 object-cover border-b border-[hsl(40,20%,88%)]"
+                  />
+                )}
+                <div className="p-6">
+                  <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br from-[hsl(348,75%,80%)] to-[hsl(20,75%,80%)] opacity-0 group-hover:opacity-30 transition-opacity blur-2xl" />
+                  <div className="relative flex items-start justify-between gap-3">
+                    <h3 className="font-serif text-xl leading-tight group-hover:text-[hsl(348,70%,45%)] transition-colors">
+                      {p.title}
+                    </h3>
+                    <span className="font-mono text-xs text-muted-foreground tabular-nums shrink-0">
+                      {p.year}
+                    </span>
+                  </div>
+                  <p className="relative mt-2 text-sm text-foreground/80">
+                    {p.description}
+                  </p>
+                  {(p.demoUrl || p.sourceUrl || p.articleUrl) && (
+                    <div className="relative mt-4 flex flex-wrap gap-2">
+                      {p.demoUrl && <PillLink href={p.demoUrl} label="Demo" />}
+                      {p.sourceUrl && <PillLink href={p.sourceUrl} label="Source" />}
+                      {p.articleUrl && <PillLink href={p.articleUrl} label="Article" />}
+                    </div>
                   )}
                 </div>
-              )}
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       )}
     </div>

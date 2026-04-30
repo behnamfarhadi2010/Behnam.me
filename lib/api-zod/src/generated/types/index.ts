@@ -21,3 +21,5 @@ export * from "./post";
 export * from "./postInput";
 export * from "./project";
 export * from "./projectInput";
+export * from "./uploadUrlRequest";
+export * from "./uploadUrlResponse";

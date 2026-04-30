@@ -14,10 +14,12 @@ import {
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Field } from "./PostEdit";
+import { ImageUploadField } from "@/components/ImageUploadField";
 
 const schema = z.object({
   title: z.string().min(1),
   description: z.string(),
+  coverImageUrl: z.string().nullable().optional(),
   year: z.coerce.number().int().min(1900).max(3000),
   articleUrl: z.string().url().or(z.literal("")).nullable().optional(),
   demoUrl: z.string().url().or(z.literal("")).nullable().optional(),
@@ -46,6 +48,7 @@ export default function ProjectEdit() {
     defaultValues: {
       title: "",
       description: "",
+      coverImageUrl: null,
       year: new Date().getFullYear(),
       articleUrl: "",
       demoUrl: "",
@@ -59,6 +62,7 @@ export default function ProjectEdit() {
       form.reset({
         title: project.title,
         description: project.description,
+        coverImageUrl: project.coverImageUrl ?? null,
         year: project.year,
         articleUrl: project.articleUrl ?? "",
         demoUrl: project.demoUrl ?? "",
@@ -112,6 +116,10 @@ export default function ProjectEdit() {
       <Field label="Description">
         <textarea rows={3} className={`${inputCls} resize-y`} {...form.register("description")} />
       </Field>
+      <ImageUploadField
+        value={form.watch("coverImageUrl")}
+        onChange={(p) => form.setValue("coverImageUrl", p, { shouldDirty: true })}
+      />
       <div className="grid sm:grid-cols-3 gap-4">
         <Field label="Article URL" error={form.formState.errors.articleUrl?.message}>
           <input className={inputCls} {...form.register("articleUrl")} placeholder="https://…" />

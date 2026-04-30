@@ -13,5 +13,6 @@ export interface NoteInput {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
 }

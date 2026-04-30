@@ -4,6 +4,7 @@ export const projectsTable = pgTable("projects", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull().default(""),
+  coverImageUrl: text("cover_image_url"),
   year: integer("year").notNull(),
   articleUrl: text("article_url"),
   demoUrl: text("demo_url"),

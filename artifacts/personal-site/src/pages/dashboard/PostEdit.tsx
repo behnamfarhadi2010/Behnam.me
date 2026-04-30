@@ -14,12 +14,14 @@ import {
 } from "@workspace/api-client-react";
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
+import { ImageUploadField } from "@/components/ImageUploadField";
 
 const schema = z.object({
   slug: z.string().min(1, "Slug is required").regex(/^[a-z0-9-]+$/, "Lowercase letters, numbers and dashes only"),
   title: z.string().min(1, "Title is required"),
   excerpt: z.string(),
   content: z.string(),
+  coverImageUrl: z.string().nullable().optional(),
   published: z.boolean(),
 });
 
@@ -38,7 +40,7 @@ export default function PostEdit() {
 
   const form = useForm<PostInput>({
     resolver: zodResolver(schema),
-    defaultValues: { slug: "", title: "", excerpt: "", content: "", published: false },
+    defaultValues: { slug: "", title: "", excerpt: "", content: "", coverImageUrl: null, published: false },
   });
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function PostEdit() {
         title: post.title,
         excerpt: post.excerpt,
         content: post.content,
+        coverImageUrl: post.coverImageUrl ?? null,
         published: post.published,
       });
     }
@@ -92,6 +95,11 @@ export default function PostEdit() {
       <Field label="Excerpt">
         <input className={inputCls} {...form.register("excerpt")} placeholder="One-sentence teaser" />
       </Field>
+      <ImageUploadField
+        value={form.watch("coverImageUrl")}
+        onChange={(p) => form.setValue("coverImageUrl", p, { shouldDirty: true })}
+        label="Cover image"
+      />
       <Field label="Content">
         <textarea
           rows={16}

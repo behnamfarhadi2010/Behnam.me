@@ -6,13 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface PostInput {
+export interface UploadUrlRequest {
   /** @minLength 1 */
-  slug: string;
+  name: string;
+  /** @minimum 1 */
+  size: number;
   /** @minLength 1 */
-  title: string;
-  content: string;
-  excerpt: string;
-  coverImageUrl?: string | null;
-  published: boolean;
+  contentType: string;
 }

@@ -1,6 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { useGetNote, getGetNoteQueryKey } from "@workspace/api-client-react";
 import { fmtDate } from "@/lib/format";
+import { imageSrc } from "@/components/ImageUploadField";
 import { ArrowLeft } from "lucide-react";
 
 export default function NoteDetail() {
@@ -50,6 +51,13 @@ export default function NoteDetail() {
           <p className="text-lg text-foreground/75 italic">{note.excerpt}</p>
         )}
       </header>
+      {imageSrc(note.coverImageUrl) && (
+        <img
+          src={imageSrc(note.coverImageUrl)}
+          alt=""
+          className="w-full rounded-lg border border-[hsl(40,20%,88%)] mb-8 object-cover max-h-[360px]"
+        />
+      )}
       <div className="prose prose-stone max-w-none whitespace-pre-wrap leading-relaxed">
         {note.content}
       </div>

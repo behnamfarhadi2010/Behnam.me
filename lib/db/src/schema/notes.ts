@@ -6,6 +6,7 @@ export const notesTable = pgTable("notes", {
   title: text("title").notNull(),
   content: text("content").notNull().default(""),
   excerpt: text("excerpt").notNull().default(""),
+  coverImageUrl: text("cover_image_url"),
   published: boolean("published").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),

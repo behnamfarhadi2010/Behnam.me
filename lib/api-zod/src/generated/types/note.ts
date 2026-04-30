@@ -12,6 +12,7 @@ export interface Note {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
   createdAt: Date;
   updatedAt: Date;

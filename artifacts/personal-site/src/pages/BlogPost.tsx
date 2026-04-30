@@ -1,6 +1,7 @@
 import { Link, useRoute } from "wouter";
 import { useGetPost, getGetPostQueryKey } from "@workspace/api-client-react";
 import { fmtDate } from "@/lib/format";
+import { imageSrc } from "@/components/ImageUploadField";
 import { ArrowLeft } from "lucide-react";
 
 export default function BlogPost() {
@@ -60,6 +61,13 @@ export default function BlogPost() {
           <p className="text-lg text-foreground/75 italic">{post.excerpt}</p>
         )}
       </header>
+      {imageSrc(post.coverImageUrl) && (
+        <img
+          src={imageSrc(post.coverImageUrl)}
+          alt=""
+          className="w-full rounded-lg border border-[hsl(40,20%,88%)] mb-8 object-cover max-h-[420px]"
+        />
+      )}
       <div className="prose prose-stone max-w-none whitespace-pre-wrap leading-relaxed">
         {post.content}
       </div>

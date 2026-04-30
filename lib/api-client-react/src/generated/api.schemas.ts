@@ -15,6 +15,7 @@ export interface Post {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
   createdAt: string;
   updatedAt: string;
@@ -27,6 +28,7 @@ export interface PostInput {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
 }
 
@@ -36,6 +38,7 @@ export interface Note {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
   createdAt: string;
   updatedAt: string;
@@ -48,6 +51,7 @@ export interface NoteInput {
   title: string;
   content: string;
   excerpt: string;
+  coverImageUrl?: string | null;
   published: boolean;
 }
 
@@ -55,6 +59,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
+  coverImageUrl?: string | null;
   year: number;
   articleUrl?: string | null;
   demoUrl?: string | null;
@@ -68,6 +73,7 @@ export interface ProjectInput {
   /** @minLength 1 */
   title: string;
   description: string;
+  coverImageUrl?: string | null;
   year: number;
   articleUrl?: string | null;
   demoUrl?: string | null;
@@ -80,6 +86,7 @@ export interface About {
   tagline: string;
   intro: string;
   bio: string;
+  avatarUrl?: string | null;
   emailNewsletter: string;
   blueskyUrl: string;
   rssUrl: string;
@@ -91,9 +98,25 @@ export interface AboutInput {
   tagline: string;
   intro: string;
   bio: string;
+  avatarUrl?: string | null;
   emailNewsletter: string;
   blueskyUrl: string;
   rssUrl: string;
+}
+
+export interface UploadUrlRequest {
+  /** @minLength 1 */
+  name: string;
+  /** @minimum 1 */
+  size: number;
+  /** @minLength 1 */
+  contentType: string;
+}
+
+export interface UploadUrlResponse {
+  uploadURL: string;
+  objectPath: string;
+  metadata?: UploadUrlRequest;
 }
 
 export interface DashboardSummary {

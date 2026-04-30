@@ -15,12 +15,14 @@ import {
 import { toast } from "sonner";
 import { ArrowLeft, Loader2, Save } from "lucide-react";
 import { Field } from "./PostEdit";
+import { ImageUploadField } from "@/components/ImageUploadField";
 
 const schema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
   excerpt: z.string(),
   content: z.string(),
+  coverImageUrl: z.string().nullable().optional(),
   published: z.boolean(),
 });
 
@@ -42,7 +44,7 @@ export default function NoteEdit() {
 
   const form = useForm<NoteInput>({
     resolver: zodResolver(schema),
-    defaultValues: { slug: "", title: "", excerpt: "", content: "", published: false },
+    defaultValues: { slug: "", title: "", excerpt: "", content: "", coverImageUrl: null, published: false },
   });
 
   useEffect(() => {
@@ -52,6 +54,7 @@ export default function NoteEdit() {
         title: note.title,
         excerpt: note.excerpt,
         content: note.content,
+        coverImageUrl: note.coverImageUrl ?? null,
         published: note.published,
       });
     }
@@ -96,6 +99,10 @@ export default function NoteEdit() {
       <Field label="Excerpt">
         <input className={inputCls} {...form.register("excerpt")} />
       </Field>
+      <ImageUploadField
+        value={form.watch("coverImageUrl")}
+        onChange={(p) => form.setValue("coverImageUrl", p, { shouldDirty: true })}
+      />
       <Field label="Content">
         <textarea rows={12} className={`${inputCls} font-mono text-sm resize-y`} {...form.register("content")} />
       </Field>

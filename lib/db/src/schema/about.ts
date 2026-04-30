@@ -6,6 +6,7 @@ export const aboutTable = pgTable("about", {
   tagline: text("tagline").notNull().default(""),
   intro: text("intro").notNull().default(""),
   bio: text("bio").notNull().default(""),
+  avatarUrl: text("avatar_url"),
   emailNewsletter: text("email_newsletter").notNull().default(""),
   blueskyUrl: text("bluesky_url").notNull().default(""),
   rssUrl: text("rss_url").notNull().default(""),

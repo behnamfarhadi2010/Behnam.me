@@ -12,12 +12,14 @@ import {
 import { toast } from "sonner";
 import { Loader2, Save } from "lucide-react";
 import { Field } from "./PostEdit";
+import { ImageUploadField } from "@/components/ImageUploadField";
 
 const schema = z.object({
   name: z.string().min(1),
   tagline: z.string(),
   intro: z.string(),
   bio: z.string(),
+  avatarUrl: z.string().nullable().optional(),
   emailNewsletter: z.string(),
   blueskyUrl: z.string(),
   rssUrl: z.string(),
@@ -46,6 +48,7 @@ export default function AboutEdit() {
       tagline: "",
       intro: "",
       bio: "",
+      avatarUrl: null,
       emailNewsletter: "",
       blueskyUrl: "",
       rssUrl: "",
@@ -59,6 +62,7 @@ export default function AboutEdit() {
         tagline: about.tagline,
         intro: about.intro,
         bio: about.bio,
+        avatarUrl: about.avatarUrl ?? null,
         emailNewsletter: about.emailNewsletter,
         blueskyUrl: about.blueskyUrl,
         rssUrl: about.rssUrl,
@@ -80,6 +84,12 @@ export default function AboutEdit() {
           The intro, bio, and contact links shown across the public site.
         </p>
       </header>
+      <ImageUploadField
+        value={form.watch("avatarUrl")}
+        onChange={(p) => form.setValue("avatarUrl", p, { shouldDirty: true })}
+        label="Profile photo"
+        shape="circle"
+      />
       <div className="grid sm:grid-cols-2 gap-4">
         <Field label="Name" error={form.formState.errors.name?.message}>
           <input className={inputCls} {...form.register("name")} />
