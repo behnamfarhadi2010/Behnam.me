@@ -4,10 +4,10 @@ async function main() {
   const [aboutCount] = await db.select().from(aboutTable).limit(1);
   if (!aboutCount) {
     await db.insert(aboutTable).values({
-      name: "Avery Holt",
+      name: "Behnam Farhadi",
       tagline: "Software engineer & open-source creator",
       intro:
-        "Hi, I'm Avery — a software engineer and open-source creator. I've been building things on the web since the early 2000s and writing about it for the last decade.",
+        "Hi, I'm Behnam — a software engineer and open-source creator. I've been building things on the web since the early 2000s and writing about it for the last decade.",
       bio: "I'm a software engineer based in the Bay Area. I love building thoughtful tools, writing about what I learn, and tending to small open-source projects in my spare time. This site is my digital garden — a place to publish notes, share long-form posts, and link to the things I've made. Everything here is written by me, not AI.",
       emailNewsletter: "https://example.com/newsletter",
       blueskyUrl: "https://bsky.app/",
