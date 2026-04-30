@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { useGetAbout } from "@workspace/api-client-react";
-import { useAuth, UserButton } from "@clerk/react";
+import { useAuth } from "@/lib/auth";
 import { Mail, Rss, MessageCircle, Menu, X, LayoutDashboard } from "lucide-react";
 
 const NAV = [
@@ -50,10 +50,10 @@ function SidebarBody({ onNav }: { onNav?: () => void }) {
       <div>
         <Link href="/" onClick={onNav} className="flex items-center gap-3 group">
           <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[hsl(348,75%,65%)] to-[hsl(20,75%,60%)] text-white font-serif text-xl shadow-md">
-            {about?.name?.[0] ?? "A"}
+            {about?.name?.[0] ?? "B"}
           </div>
           <div>
-            <div className="font-serif text-lg leading-tight text-foreground">{about?.name ?? "—"}</div>
+            <div className="font-serif text-lg leading-tight text-foreground">{about?.name ?? "Behnam"}</div>
             <div className="text-xs text-muted-foreground">{about?.tagline ?? ""}</div>
           </div>
         </Link>
@@ -105,7 +105,6 @@ function SidebarBody({ onNav }: { onNav?: () => void }) {
         </div>
 
         {isSignedIn && (
-          <div className="flex items-center justify-between rounded-md border border-dashed border-[hsl(40,30%,80%)] bg-[hsl(40,40%,95%)] px-3 py-2">
             <Link
               href="/dashboard"
               onClick={onNav}
@@ -114,8 +113,6 @@ function SidebarBody({ onNav }: { onNav?: () => void }) {
               <LayoutDashboard className="h-4 w-4" />
               Dashboard
             </Link>
-            <UserButton />
-          </div>
         )}
 
         <div className="border-t border-[hsl(40,20%,88%)] pt-3 text-xs text-muted-foreground">

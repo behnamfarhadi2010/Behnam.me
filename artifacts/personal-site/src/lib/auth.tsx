@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useLocation } from "wouter";
-import { setAuthTokenGetter } from "@workspace/api-client-react";
+import { setAuthTokenGetter, setBaseUrl } from "@workspace/api-client-react";
+
+// Point to the live backend if provided, otherwise default to local
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+setBaseUrl(API_URL);
+
 
 interface AuthContextType {
   isLoaded: boolean;
