@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
@@ -23,13 +22,6 @@ export default function SignInPage() {
     }
   };
 
-=======
-import { SignIn } from "@clerk/react";
-import { Link } from "wouter";
-
-export default function SignInPage() {
-  const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
   return (
     <div className="min-h-screen flex flex-col bg-[hsl(40,33%,97%)]">
       <header className="px-6 py-4">
@@ -45,7 +37,6 @@ export default function SignInPage() {
               Sign in to manage posts, notes, and projects.
             </p>
           </div>
-<<<<<<< HEAD
           
           <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-sm border">
             <div className="space-y-2">
@@ -75,14 +66,6 @@ export default function SignInPage() {
               Sign In
             </Button>
           </form>
-=======
-          <SignIn
-            routing="path"
-            path={`${basePath}/sign-in`}
-            signUpUrl={`${basePath}/sign-up`}
-            fallbackRedirectUrl={`${basePath}/dashboard`}
-          />
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
         </div>
       </div>
     </div>

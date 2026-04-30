@@ -1,13 +1,8 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-<<<<<<< HEAD
 import { useAuth, AuthProvider } from "@/lib/auth";
-=======
-import { ClerkProvider, useAuth } from "@clerk/react";
-import { useEffect } from "react";
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
 
 import PublicLayout from "@/components/layout/PublicLayout";
 import AdminLayout from "@/components/layout/AdminLayout";
@@ -20,7 +15,6 @@ import NoteDetail from "@/pages/NoteDetail";
 import Projects from "@/pages/Projects";
 import About from "@/pages/About";
 import SignInPage from "@/pages/SignInPage";
-import SignUpPage from "@/pages/SignUpPage";
 
 import DashboardOverview from "@/pages/dashboard/Overview";
 import DashboardPosts from "@/pages/dashboard/PostsManage";
@@ -32,38 +26,14 @@ import DashboardProjectEdit from "@/pages/dashboard/ProjectEdit";
 import DashboardAbout from "@/pages/dashboard/AboutEdit";
 
 import NotFound from "@/pages/not-found";
-<<<<<<< HEAD
-=======
-import { clerkAppearance } from "@/lib/clerkAppearance";
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, refetchOnWindowFocus: false } },
 });
 
-<<<<<<< HEAD
-
-=======
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-if (!PUBLISHABLE_KEY) throw new Error("Missing VITE_CLERK_PUBLISHABLE_KEY");
-
-const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
-const stripBase = (to: string) => (basePath && to.startsWith(basePath) ? to.slice(basePath.length) || "/" : to);
-
-function ClerkQueryCacheInvalidator() {
-  const { isSignedIn, isLoaded } = useAuth();
-  const qc = useQueryClient();
-  useEffect(() => {
-    if (isLoaded) qc.invalidateQueries();
-  }, [isSignedIn, isLoaded, qc]);
-  return null;
-}
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
-
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isLoaded, isSignedIn } = useAuth();
   const [, setLocation] = useLocation();
-<<<<<<< HEAD
 
   if (!isLoaded) return null;
   if (!isSignedIn) {
@@ -80,32 +50,6 @@ function AppRouter() {
     <AuthProvider>
       <Switch>
         <Route path="/sign-in/*?" component={SignInPage} />
-=======
-  useEffect(() => {
-    if (isLoaded && !isSignedIn) setLocation("/sign-in");
-  }, [isLoaded, isSignedIn, setLocation]);
-  if (!isLoaded) return null;
-  if (!isSignedIn) return null;
-  return <>{children}</>;
-}
-
-function AppRouter() {
-  const [, setLocation] = useLocation();
-  return (
-    <ClerkProvider
-      publishableKey={PUBLISHABLE_KEY}
-      afterSignOutUrl={`${basePath}/`}
-      signInUrl={`${basePath}/sign-in`}
-      signUpUrl={`${basePath}/sign-up`}
-      routerPush={(to) => setLocation(stripBase(to))}
-      routerReplace={(to) => setLocation(stripBase(to), { replace: true })}
-      appearance={clerkAppearance}
-    >
-      <ClerkQueryCacheInvalidator />
-      <Switch>
-        <Route path="/sign-in/*?" component={SignInPage} />
-        <Route path="/sign-up/*?" component={SignUpPage} />
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
 
         <Route path="/dashboard" nest>
           <RequireAuth>
@@ -143,11 +87,7 @@ function AppRouter() {
           </PublicLayout>
         </Route>
       </Switch>
-<<<<<<< HEAD
     </AuthProvider>
-=======
-    </ClerkProvider>
->>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
   );
 }
 
