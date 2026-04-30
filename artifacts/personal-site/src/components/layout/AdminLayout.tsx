@@ -1,8 +1,13 @@
 import { Link, useLocation } from "wouter";
+<<<<<<< HEAD
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
   LogOut,
+=======
+import { UserButton } from "@clerk/react";
+import {
+>>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
   LayoutDashboard,
   FileText,
   StickyNote,
@@ -21,7 +26,10 @@ const ADMIN_NAV = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [loc] = useLocation();
+<<<<<<< HEAD
   const { signOut } = useAuth();
+=======
+>>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
   // useLocation inside the nested router returns paths relative to /dashboard,
   // e.g. "/" for /dashboard, "/posts" for /dashboard/posts.
   return (
@@ -42,10 +50,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <span className="ml-1 text-[hsl(348,70%,55%)]">.</span>
             </span>
           </div>
+<<<<<<< HEAD
           <Button variant="outline" size="sm" onClick={() => signOut()} className="flex items-center gap-2">
             <LogOut className="h-4 w-4" />
             <span className="hidden sm:inline">Sign Out</span>
           </Button>
+=======
+          <UserButton />
+>>>>>>> ef57f6830cf4bd7deb77e1ac4909868f2c238893
         </div>
         <nav className="mx-auto max-w-7xl px-2 sm:px-6 -mb-px overflow-x-auto">
           <ul className="flex gap-1 text-sm">
