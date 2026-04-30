@@ -10,24 +10,24 @@ import {
 } from "lucide-react";
 
 const ADMIN_NAV = [
-  { to: "/dashboard", label: "Overview", icon: LayoutDashboard, exact: true },
-  { to: "/dashboard/posts", label: "Posts", icon: FileText },
-  { to: "/dashboard/notes", label: "Notes", icon: StickyNote },
-  { to: "/dashboard/projects", label: "Projects", icon: Hammer },
-  { to: "/dashboard/about", label: "About", icon: User },
+  { to: "/", label: "Overview", icon: LayoutDashboard, exact: true },
+  { to: "/posts", label: "Posts", icon: FileText },
+  { to: "/notes", label: "Notes", icon: StickyNote },
+  { to: "/projects", label: "Projects", icon: Hammer },
+  { to: "/about", label: "About", icon: User },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [loc] = useLocation();
-  // because we are nested under /dashboard, wouter exposes loc relative to base
-  // but useLocation here returns the full path like /dashboard/posts.
+  // useLocation inside the nested router returns paths relative to /dashboard,
+  // e.g. "/" for /dashboard, "/posts" for /dashboard/posts.
   return (
     <div className="min-h-screen bg-[hsl(40,30%,95%)]">
       <header className="border-b border-[hsl(40,20%,85%)] bg-background/95 backdrop-blur sticky top-0 z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <div className="flex items-center gap-6">
             <Link
-              href="/"
+              href="~/"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-[hsl(348,70%,55%)] transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />

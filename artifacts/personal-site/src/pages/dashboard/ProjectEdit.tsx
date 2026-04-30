@@ -29,7 +29,7 @@ const inputCls =
   "w-full rounded-md border border-[hsl(40,20%,82%)] bg-background px-3 py-2 text-sm focus:border-[hsl(348,70%,55%)] focus:outline-none focus:ring-2 focus:ring-[hsl(348,70%,55%)]/20 transition-colors";
 
 export default function ProjectEdit() {
-  const [, params] = useRoute("/dashboard/projects/:id");
+  const [, params] = useRoute("/projects/:id");
   const [, setLocation] = useLocation();
   const isNew = !params || params.id === "new";
   const id = !isNew ? Number(params!.id) : undefined;
@@ -85,7 +85,7 @@ export default function ProjectEdit() {
       }
       qc.invalidateQueries({ queryKey: getListProjectsQueryKey() });
       qc.invalidateQueries({ queryKey: getListProjectsQueryKey({ published: true }) });
-      setLocation("/dashboard/projects");
+      setLocation("/projects");
     } catch (e) {
       toast.error(`Save failed: ${(e as Error).message}`);
     }
@@ -95,7 +95,7 @@ export default function ProjectEdit() {
 
   return (
     <form onSubmit={submit} className="space-y-6 max-w-3xl">
-      <Link href="/dashboard/projects" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+      <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> All projects
       </Link>
       <header>
@@ -138,7 +138,7 @@ export default function ProjectEdit() {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {isNew ? "Create project" : "Save changes"}
         </button>
-        <Link href="/dashboard/projects" className="text-sm text-muted-foreground hover:text-foreground">Cancel</Link>
+        <Link href="/projects" className="text-sm text-muted-foreground hover:text-foreground">Cancel</Link>
       </div>
     </form>
   );

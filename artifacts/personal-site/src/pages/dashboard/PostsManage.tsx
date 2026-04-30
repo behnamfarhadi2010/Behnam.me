@@ -36,7 +36,7 @@ export default function PostsManage() {
 
   return (
     <div className="space-y-6">
-      <ManageHeader title="Posts" subtitle="Long-form essays and tutorials." newHref="/dashboard/posts/new" />
+      <ManageHeader title="Posts" subtitle="Long-form essays and tutorials." newHref="/posts/new" />
       <div className="rounded-lg border border-[hsl(40,20%,88%)] bg-[hsl(40,33%,98%)] overflow-hidden">
         {isLoading ? (
           <div className="p-6 space-y-2">
@@ -45,12 +45,12 @@ export default function PostsManage() {
             ))}
           </div>
         ) : (data ?? []).length === 0 ? (
-          <Empty entity="post" newHref="/dashboard/posts/new" />
+          <Empty entity="post" newHref="/posts/new" />
         ) : (
           <ul className="divide-y divide-[hsl(40,20%,90%)]">
             {(data ?? []).map((p) => (
               <li key={p.id} className="group flex items-center gap-3 px-5 py-3 hover:bg-[hsl(40,40%,96%)] transition-colors">
-                <Link href={`/dashboard/posts/${p.id}`} className="flex-1 min-w-0 flex items-center gap-3">
+                <Link href={`/posts/${p.id}`} className="flex-1 min-w-0 flex items-center gap-3">
                   {p.published ? (
                     <CheckCircle2 className="h-4 w-4 text-[hsl(150,50%,45%)] shrink-0" />
                   ) : (
@@ -62,7 +62,7 @@ export default function PostsManage() {
                   </div>
                 </Link>
                 <Link
-                  href={`/dashboard/posts/${p.id}`}
+                  href={`/posts/${p.id}`}
                   className="p-2 rounded-md text-muted-foreground hover:bg-[hsl(40,40%,93%)] hover:text-foreground transition-colors"
                 >
                   <Pencil className="h-4 w-4" />

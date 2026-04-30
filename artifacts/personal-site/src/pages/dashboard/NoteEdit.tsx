@@ -28,7 +28,7 @@ const inputCls =
   "w-full rounded-md border border-[hsl(40,20%,82%)] bg-background px-3 py-2 text-sm focus:border-[hsl(348,70%,55%)] focus:outline-none focus:ring-2 focus:ring-[hsl(348,70%,55%)]/20 transition-colors";
 
 export default function NoteEdit() {
-  const [, params] = useRoute("/dashboard/notes/:id");
+  const [, params] = useRoute("/notes/:id");
   const [, setLocation] = useLocation();
   const isNew = !params || params.id === "new";
   const id = !isNew ? Number(params!.id) : undefined;
@@ -69,7 +69,7 @@ export default function NoteEdit() {
       }
       qc.invalidateQueries({ queryKey: getListNotesQueryKey() });
       qc.invalidateQueries({ queryKey: getListNotesQueryKey({ published: true }) });
-      setLocation("/dashboard/notes");
+      setLocation("/notes");
     } catch (e) {
       toast.error(`Save failed: ${(e as Error).message}`);
     }
@@ -79,7 +79,7 @@ export default function NoteEdit() {
 
   return (
     <form onSubmit={submit} className="space-y-6 max-w-3xl">
-      <Link href="/dashboard/notes" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+      <Link href="/notes" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" /> All notes
       </Link>
       <header>
@@ -114,7 +114,7 @@ export default function NoteEdit() {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {isNew ? "Create note" : "Save changes"}
         </button>
-        <Link href="/dashboard/notes" className="text-sm text-muted-foreground hover:text-foreground">Cancel</Link>
+        <Link href="/notes" className="text-sm text-muted-foreground hover:text-foreground">Cancel</Link>
       </div>
     </form>
   );

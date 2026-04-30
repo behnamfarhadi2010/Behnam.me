@@ -24,7 +24,7 @@ const schema = z.object({
 });
 
 export default function PostEdit() {
-  const [, params] = useRoute("/dashboard/posts/:id");
+  const [, params] = useRoute("/posts/:id");
   const [, setLocation] = useLocation();
   const isNew = !params || params.id === "new";
   const id = !isNew ? Number(params!.id) : undefined;
@@ -65,7 +65,7 @@ export default function PostEdit() {
       }
       qc.invalidateQueries({ queryKey: getListPostsQueryKey() });
       qc.invalidateQueries({ queryKey: getListPostsQueryKey({ published: true }) });
-      setLocation("/dashboard/posts");
+      setLocation("/posts");
     } catch (e) {
       toast.error(`Save failed: ${(e as Error).message}`);
     }
@@ -75,7 +75,7 @@ export default function PostEdit() {
 
   return (
     <form onSubmit={submit} className="space-y-6 max-w-3xl">
-      <Link href="/dashboard/posts" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+      <Link href="/posts" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
         <ArrowLeft className="h-4 w-4" /> All posts
       </Link>
       <header>
@@ -115,7 +115,7 @@ export default function PostEdit() {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {isNew ? "Create post" : "Save changes"}
         </button>
-        <Link href="/dashboard/posts" className="text-sm text-muted-foreground hover:text-foreground">
+        <Link href="/posts" className="text-sm text-muted-foreground hover:text-foreground">
           Cancel
         </Link>
       </div>

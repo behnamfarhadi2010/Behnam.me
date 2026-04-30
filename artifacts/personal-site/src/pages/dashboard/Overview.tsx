@@ -21,21 +21,21 @@ export default function DashboardOverview() {
 
       <section className="grid sm:grid-cols-3 gap-4">
         <StatCard
-          to="/dashboard/posts"
+          to="/posts"
           icon={<FileText className="h-5 w-5" />}
           label="Posts"
           published={summary?.postsPublished ?? 0}
           total={summary?.postsTotal ?? 0}
         />
         <StatCard
-          to="/dashboard/notes"
+          to="/notes"
           icon={<StickyNote className="h-5 w-5" />}
           label="Notes"
           published={summary?.notesPublished ?? 0}
           total={summary?.notesTotal ?? 0}
         />
         <StatCard
-          to="/dashboard/projects"
+          to="/projects"
           icon={<Hammer className="h-5 w-5" />}
           label="Projects"
           published={summary?.projectsPublished ?? 0}
@@ -52,10 +52,10 @@ export default function DashboardOverview() {
             (activity ?? []).map((a, i) => {
               const link =
                 a.kind === "post"
-                  ? `/dashboard/posts/${a.id}`
+                  ? `/posts/${a.id}`
                   : a.kind === "note"
-                  ? `/dashboard/notes/${a.id}`
-                  : `/dashboard/projects/${a.id}`;
+                  ? `/notes/${a.id}`
+                  : `/projects/${a.id}`;
               const Icon = a.kind === "post" ? FileText : a.kind === "note" ? StickyNote : Hammer;
               return (
                 <Link

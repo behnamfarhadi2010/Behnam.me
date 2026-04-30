@@ -36,7 +36,7 @@ export default function ProjectsManage() {
 
   return (
     <div className="space-y-6">
-      <ManageHeader title="Projects" subtitle="Things you've built and shipped." newHref="/dashboard/projects/new" />
+      <ManageHeader title="Projects" subtitle="Things you've built and shipped." newHref="/projects/new" />
       <div className="rounded-lg border border-[hsl(40,20%,88%)] bg-[hsl(40,33%,98%)] overflow-hidden">
         {isLoading ? (
           <div className="p-6 space-y-2">
@@ -45,12 +45,12 @@ export default function ProjectsManage() {
             ))}
           </div>
         ) : (data ?? []).length === 0 ? (
-          <Empty entity="project" newHref="/dashboard/projects/new" />
+          <Empty entity="project" newHref="/projects/new" />
         ) : (
           <ul className="divide-y divide-[hsl(40,20%,90%)]">
             {(data ?? []).map((p) => (
               <li key={p.id} className="group flex items-center gap-3 px-5 py-3 hover:bg-[hsl(40,40%,96%)] transition-colors">
-                <Link href={`/dashboard/projects/${p.id}`} className="flex-1 min-w-0 flex items-center gap-3">
+                <Link href={`/projects/${p.id}`} className="flex-1 min-w-0 flex items-center gap-3">
                   {p.published ? (
                     <CheckCircle2 className="h-4 w-4 text-[hsl(150,50%,45%)] shrink-0" />
                   ) : (
@@ -62,7 +62,7 @@ export default function ProjectsManage() {
                   </div>
                 </Link>
                 <Link
-                  href={`/dashboard/projects/${p.id}`}
+                  href={`/projects/${p.id}`}
                   className="p-2 rounded-md text-muted-foreground hover:bg-[hsl(40,40%,93%)] hover:text-foreground transition-colors"
                 >
                   <Pencil className="h-4 w-4" />
